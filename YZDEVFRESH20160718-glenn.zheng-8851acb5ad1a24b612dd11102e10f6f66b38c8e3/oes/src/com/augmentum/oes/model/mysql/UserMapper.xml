@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.augmentum.oes.model.User">
+
+    <resultMap type="User" id="userMap">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="chinese_name" property="chineseName"/>
+        <result column="gender" property="gender"/>
+        <result column="role_type" property="roleType"/>
+        <result column="tel_number" property="telNumber"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <select id="getUserById" parameterType="String" resultMap="userMap">
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                user 
+            WHERE 
+                id = LOWER(#{id})
+        ]]>
+    </select>
+
+    <select id="findUsers" resultMap="userMap">
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                user
+        ]]>
+    </select>
+
+    <select id="getUserByPwd" parameterType="map" resultMap="userMap">
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                user 
+            WHERE 
+                user_name= #{username} 
+            AND 
+                password = #{password}
+        ]]>
+    </select>
+
+    <update id="changePassword" parameterType="map">
+        <![CDATA[
+            UPDATE 
+                user 
+            SET 
+                password = #{password} 
+            WHERE 
+                id = #{id}
+        ]]>
+    </update>
+</mapper>

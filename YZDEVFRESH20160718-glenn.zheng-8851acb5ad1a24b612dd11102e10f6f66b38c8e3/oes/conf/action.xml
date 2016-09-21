@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controller>
+    <action name="CreateQuestion" class="questionController" method="save" httpMethod="POST, GET" >
+        <result name="success" view="/WEB-INF/jsp/question/createQuestion.jsp" redirect="false" />
+        <result name="error" view="/WEB-INF/jsp/question/createQuestion.jsp" redirect="false" />
+    </action>
+    
+    <action name="DeleteQuestion" class="questionController" method="delete" httpMethod="GET, " >
+        <result name="success" view="/QuestionManager.action?forwardId=1" redirect="false" viewParameter="" />
+    </action>
+    
+    <action name="EditQuestion" class="questionController" method="edit" httpMethod="POST, " >
+        <result name="successListWithPageSize" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="successList" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="error" view="/WEB-INF/jsp/question/editQuestion.jsp" redirect="false" />
+    </action>
+    
+    <action name="ToEditQuestion" class="questionController" method="toEdit" httpMethod="GET, " >
+        <result name="success" view="/WEB-INF/jsp/question/editQuestion.jsp" redirect="false" />
+    </action>
+    
+    <action name="QuestionManager" class="questionController" method="list" httpMethod="GET" >
+        <result name="ToCreatQuestion" view="/WEB-INF/jsp/question/createQuestion.jsp" redirect="false" />
+        <result name="ToListWithPageSize" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="ToList" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="successSearch" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="successReset" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+        <result name="DESCList" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+    </action>
+    
+    <action name="ToQuestionManager" class="questionController" method="toList" httpMethod="GET, " >
+        <result name="successForward" view="/WEB-INF/jsp/question/questionList.jsp" redirect="false" />
+    </action>
+    
+    <action name="LoginServlet" class="userController" method="toLogin" httpMethod="GET, " >
+        <result name="ToListPage" view="/ToQuestionManager.action" redirect="false" />
+        <result name="ToLoginPage" view="/WEB-INF/jsp/login.jsp" redirect="false" />
+    </action>
+    <action name="SaveLogin" class="userController" method="saveLogin" httpMethod="POST, " >
+        <result name="success" view="/oes/ToQuestionManager.action" redirect="true" />
+    </action>
+    <action name="Logout" class="userController" method="logout" httpMethod="GET, " >
+        <result name="successLogout" view="/WEB-INF/jsp/logout.jsp" redirect="false" />
+    </action>
+</controller>

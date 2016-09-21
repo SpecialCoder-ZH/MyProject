@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.augmentum.oes.model.Exam">
+
+    <resultMap type="Exam" id="examMap">
+        <id column="id" property="id"/>
+        <result property="examId" column="exam_id"/>
+        <result property="examName" column="exam_name"/>
+        <result property="description" column="description"/>
+        <result property="effectiveTime" column="effective_time" />
+        <result property="duration" column="duration"/>
+        <result property="questionQuantity" column="question_quantity"/>
+        <result property="questionPoints" column="question_points"/>
+        <result property="passCriteria" column="pass_criteria"/>
+        <result property="fullScore" column="full_score"/>
+        <result property="creator" column="creator"/>
+        <result property="type" column="type"/>
+        <result property="isUsed" column="is_used"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Exam" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO 
+                exam(exam_id, exam_name, description, effective_time, duration, question_quantity, question_points, pass_criteria, full_score, creator) 
+            VALUES
+                (#{examId}, #{examName}, #{description}, #{effectiveTime}, #{duration}, #{questionQuantity}, #{questionPoints}, #{passCriteria}, #{fullScore}, #{creator})
+        ]]>
+    </insert>
+    
+    <update id="delete" parameterType="String" >
+            UPDATE
+                exam
+            SET 
+                is_deleted = true
+            WHERE 
+                exam_id 
+            IN
+            <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+                ${item}
+            </foreach>
+    </update>
+
+    <select id="getTotalRecordsByKeyWord" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                exam 
+            WHERE exam_name LIKE CONCAT(CONCAT('%', #{keywords}), '%') AND is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="getTotalRecordsByKeyWordAndDate" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*)
+            FROM 
+                exam 
+            WHERE 
+                effective_time 
+            BETWEEN 
+                #{beginDate} 
+            AND 
+                #{endDate}
+            AND
+                exam_name LIKE CONCAT(CONCAT('%', #{keywords}), '%') 
+            AND 
+                is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="getTotalRecords" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                exam
+            WHERE 
+                is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="getTotalRecordsByDate" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                exam
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate} 
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="findExamsByKeyWord" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="findExamsOrderByIdDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') ORDER BY id DESC LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+<select id="findExamsOrderByTimeDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') 
+            ORDER BY 
+                effective_time DESC
+            LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+    
+    <select id="findExamsOrderByTime" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') 
+            ORDER BY 
+                effective_time 
+            LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="findExamsByName" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') ORDER BY exam_name LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="findExamsOrderByNameDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true 
+            AND 
+                is_deleted != true 
+            AND 
+                exam_name 
+            LIKE CONCAT(CONCAT('%', #{keywords}), '%') ORDER BY exam_name DESC LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="findPageRecords" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            LIMIT #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+<!--             WHERE 
+                is_used != true
+            LIMIT 0, 10 -->
+    <select id="findExams" resultMap="examMap" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="queryById" resultMap="examMap" parameterType="Integer" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+             WHERE 
+                id = #{newId}
+             AND
+                is_used != true AND is_deleted != true
+        ]]>
+    </select>
+
+    <select id="getQuestionCount" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true AND previous_id = 0
+        ]]>
+    </select>
+
+    <select id="findPageRecordsDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            ORDER BY 
+                id 
+            DESC
+            LIMIT 
+                #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <select id="findPageRecordsByTimeDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            ORDER BY 
+                effective_time DESC
+            LIMIT 
+                #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <select id="findPageRecordsByTime" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            ORDER BY 
+                effective_time 
+            LIMIT 
+                #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <select id="findPageRecordsByName" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            ORDER BY 
+                exam_name 
+            LIMIT 
+                #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+    
+    <select id="findPageRecordsByNameDESC" resultMap="examMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                exam 
+            WHERE 
+                effective_time
+            BETWEEN
+                #{beginDate}
+            AND
+                #{endDate}
+            AND
+                is_used != true AND is_deleted != true 
+            ORDER BY 
+                exam_name 
+            DESC
+            LIMIT 
+                #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <update id="update" parameterType="Exam">
+        <![CDATA[
+            UPDATE 
+                exam 
+            SET 
+                 exam_id = #{examId} , 
+                 exam_name = #{examName}, 
+                 description = #{description}, 
+                 effective_time = #{effectiveTime}, 
+                 duration = #{duration}, 
+                 question_quantity = #{questionQuantity}, 
+                 question_points = #{questionPoints},
+                 pass_criteria = #{passCriteria}, 
+                 full_score = #{fullScore},
+                 creator = #{creator}
+            WHERE id = #{id}
+        ]]>
+    </update>
+</mapper>

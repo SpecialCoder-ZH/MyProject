@@ -1,0 +1,175 @@
+@CHARSET "UTF-8";
+.errorMessage {
+  color: red;
+  border-radius: 3px;
+} 
+
+#errorUserName {
+  width: 300px;
+  background-color: #F4A460;
+  font-family: arial reular;
+  position: absolute;
+  left: 50px;
+  top: 36px;
+  width: 300px;
+  border: none;
+}
+
+#errorPassword {
+  width: 300px;
+  background-color: #F4A460;
+  font-family: arial reular;
+  position: absolute;
+  left: 50px;
+  top: 103px;
+  width: 300px;
+  border: none;
+}
+  
+#logo_image {
+  position: absolute;
+  bottom: 290px;
+  left: 170px;
+}
+      
+#project_name {
+  font-family: arial regular;
+  font-size: 30px;
+  font-weight: bold;
+  color: #2E4358;
+  position: absolute;
+  left: 170px;
+  bottom: 230px;
+}
+
+#login_wrong {
+  position: absolute;
+  right: 20px;
+  top: 65px;
+  border-radius: 25px;
+}
+
+#user_wrong {
+  position: absolute;
+  right: 20px;
+  top: 133px;
+  border-radius: 20px;
+}
+
+#login_form {
+  height: 320px;
+  width: 400px;
+   background-color: #2E4358;  
+  position: absolute;
+  right: 170px;
+  bottom: 240px;
+  border-radius: 5px;
+}
+  
+#login_form_name {
+  height: 25px;
+  margin-left: 50px;
+  margin-top: 60px;
+}
+#user_image {
+  height: 23px;
+  position: absolute;
+  left: 57px;
+  top: 64px;
+  z-index: 1;
+}
+
+#user_name {
+  height: 35px;
+  position: absolute;
+  left: 50px;
+  top: 57px;
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+  text-indent: 32px;
+}
+
+#user_password {
+  height: 23px;
+  position: absolute;
+  left: 57px;
+  top: 133px;
+  z-index: 1;
+}
+
+#password {
+  height: 35px;
+  position: absolute;
+  left: 50px;
+  top: 125px;
+  width: 300px;
+  border: none;
+  border-radius: 3px;
+  text-indent: 30px;
+}
+
+#login_button {
+  background-color: #FF8C00;
+  border: none;
+  border-radius: 5px;
+  width: 305px;
+  height: 38px;
+  position: absolute;
+  left: 50px;
+  top: 180px;
+  cursor: pointer;
+  font-family: arial reular;
+  font-size: 16px;
+  vertical-align: center;
+  color: #FFFFFF;
+}
+
+#form_checkbox {
+  border: 1px;
+  position: relative;
+  left: 40px;
+  top: 110px;
+  
+}
+
+#re_image {
+  border: none;
+  border-radius: 3px;
+  color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+#remember_me {
+  color: #FFFFFF;
+  font-family: arial reular;
+  font-size: 16px;
+}
+
+#forget_password {
+  color: #FFFFFF;
+  font-family: arial reular;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+#footer {
+  width: 100%;
+  color: #2E4358;
+  position: absolute;
+  bottom: 60px;
+  font-family: arial reular;
+  font-size: 13px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#welcome {
+  position: relative;
+  left: 790px;
+  top: 30px;
+  color: #2E4358;
+  font-family: arial reular;
+  font-size: 24px;
+  font-weight: bold;
+}

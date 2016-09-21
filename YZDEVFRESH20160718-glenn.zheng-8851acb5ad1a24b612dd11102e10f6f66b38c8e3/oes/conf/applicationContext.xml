@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:hdp="http://www.springframework.org/schema/hadoop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+        
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+           <list>
+                <value>classpath:app.properties</value>
+           </list>
+        </property>
+    </bean>
+    
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        
+        <property name="maxPoolSize" value="20" />
+        <property name="minPoolSize" value="5" />
+        <property name="acquireIncrement" value="3" />
+        <property name="initialPoolSize" value="5"></property>
+    </bean>
+    
+    <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${jdbc.driver}"></property>
+        <property name="username" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="driverClassName" value="${jdbc.driver}" />
+    </bean> -->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="com.augmentum.oes.model"></property>
+        <property name="mapperLocations" value="classpath*:com/augmentum/oes/model/mysql/*Mapper.xml" />
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+    
+    <bean id="baseDao" abstract="true">
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+    </bean>
+
+    <bean id="userDao" class="com.augmentum.oes.dao.mybatis_impl.UserDaoImpl" scope="singleton" parent="baseDao" >
+    </bean>
+
+    <bean id="questionDao" class="com.augmentum.oes.dao.mybatis_impl.QuestionDaoImpl" scope="singleton" parent="baseDao" >
+    </bean>
+
+    <bean id="paperDao" class="com.augmentum.oes.dao.mybatis_impl.PaperDaoImpl" scope="singleton" parent="baseDao" >
+    </bean>
+
+    <bean id="examDao" class="com.augmentum.oes.dao.mybatis_impl.ExamDaoImpl" scope="singleton" parent="baseDao" >
+    </bean>
+
+    <!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+    </bean>
+
+    <bean id="baseDao" abstract="true">
+       <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+
+    <bean id="userDao" class="com.augmentum.oes.dao.impl.UserDaoImpl" scope="singleton" >
+    </bean>
+
+    <bean id="questionDao" class="com.augmentum.oes.dao.impl.QuestionDaoImpl" scope="singleton" >
+    </bean> -->
+
+    <bean id="userService" class="com.augmentum.oes.service.impl.UserServiceImpl" scope="singleton" >
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="questionService" class="com.augmentum.oes.service.impl.QuestionServiceImpl" scope="singleton" >
+        <property name="questionDao" ref="questionDao"/>
+    </bean>
+
+    <bean id="examService" class="com.augmentum.oes.service.impl.ExamServiceImpl" scope="singleton" >
+        <property name="examDao" ref="examDao"/>
+    </bean>
+
+    <bean id="paperService" class="com.augmentum.oes.service.impl.PaperServiceImpl" scope="singleton" >
+        <property name="paperDao" ref="paperDao"/>
+    </bean>
+
+    <bean id="userController" class="com.augmentum.oes.controller.UserController" scope="singleton" >
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="questionController" class="com.augmentum.oes.controller.QuestionController" scope="singleton" >
+        <property name="questionService" ref="questionService"/>
+    </bean> 
+
+    <bean id="examController" class="com.augmentum.oes.controller.ExamController" scope="singleton" >
+        <property name="examService" ref="examService"/>
+    </bean> 
+
+    <bean id="questionListBlock" class="com.augmentum.oes.block.QuestionListBlock" scope="singleton" >
+        <property name="template" value="/WEB-INF/jsp/block/question_list.jsp"/>
+    </bean>
+    
+    <bean id="pagnationBlock" class="com.augmentum.oes.block.PagnationBlock" scope="singleton" >
+        <property name="template" value="/WEB-INF/jsp/block/pagnation_block.jsp"/>
+    </bean>
+    
+    <bean id="headerBlock" class="com.augmentum.oes.block.HeaderBlock" scope="singleton" >
+        <property name="template" value="/WEB-INF/jsp/block/header_block.jsp"/>
+    </bean>
+    
+    <bean id="leftMenuBlock" class="com.augmentum.oes.block.LeftMenuBlock" scope="singleton" >
+        <property name="template" value="/WEB-INF/jsp/block/leftMenu_block.jsp"/>
+    </bean>
+
+
+    <bean id="methodBefore" class="com.augmentum.oes.advice.TestMethodBeforeAdvice"></bean>
+    <bean id="logMethodTimeAdvice" class="com.augmentum.oes.service.impl.LogMethodTime"></bean>
+    <bean id="logMethodTimeAspect" class="com.augmentum.oes.advice.LogMethodTimeAspect"></bean>
+    <bean class="com.augmentum.oes.util.SpringUtil"></bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="com.augmentum.oes.exception.ParameterException"/>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="com.augmentum.oes.exception.ParameterException"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="com.augmentum.oes.exception.ParameterException"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="com.augmentum.oes.exception.ParameterException"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="pc" expression="execution(* com.augmentum.oes.service..*.*(..))" />
+        <aop:advisor pointcut-ref="pc" advice-ref="logMethodTimeAdvice" order="3" />
+        <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="2" />
+        <aop:advisor pointcut-ref="pc" advice-ref="methodBefore" order="1"/>
+
+        <aop:aspect id="logMethodTimeAspect" ref="logMethodTimeAspect">
+            <aop:pointcut id="bussessService" expression="execution(* com.augmentum.oes.service..*.*(..))" />
+            <aop:after method="doAfter" pointcut-ref="bussessService"/>
+            <aop:after-throwing method="doThrow" throwing="ex" pointcut-ref="bussessService"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

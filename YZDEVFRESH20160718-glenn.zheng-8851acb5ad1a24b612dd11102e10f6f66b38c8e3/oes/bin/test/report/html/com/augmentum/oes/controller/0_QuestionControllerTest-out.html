@@ -1,0 +1,111 @@
+<html xmlns:string="xalan://java.lang.String" xmlns:lxslt="http://xml.apache.org/xslt">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Standard Output from QuestionControllerTest</title>
+</head>
+<body>
+<pre>before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:52 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@958e6b]
+[15 八月 2016 23:47:52 DEBUG] - ==&gt;  Preparing: SELECT COUNT(*) FROM question WHERE isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@958e6b]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE isdelete != true AND previous_id =0 LIMIT ?, ? 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 0(Integer), 10(Integer)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecordsByKeyWords
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecordsByKeyWords:219
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@958e6b]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT COUNT(*) FROM question WHERE question_content LIKE CONCAT(CONCAT('%', ?), '%') AND isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: abc(String)
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@958e6b]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE isdelete != true AND previous_id = 0 AND question_content LIKE CONCAT(CONCAT('%', ?), '%') LIMIT 0, 10 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: abc(String)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecordsByKeyWords
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecordsByKeyWords:63
+before method。。。。 
+invoke logMethodTime....
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecords
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecords:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@958e6b]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE question_content LIKE CONCAT(CONCAT('%', ?), '%') AND isdelete != true AND previous_id = 0 ORDER BY id DESC LIMIT 0, 10 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: abc(String)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecordsByKeyWordsDESC
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecordsByKeyWordsDESC:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@d54d4d]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE id = ? AND isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 2420(String)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.queryQuestionById
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:queryQuestionById:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1f90482]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE id = ? AND isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 2420(String)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.queryQuestionById
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:queryQuestionById:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1f90482]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: INSERT INTO question(display_id, question_content, option_one, option_two, option_three, option_four, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?) 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: testSave(String), testSave(String), B(String), D(String), C(String), A(String), B(String)
+2643questionId questionId questionId
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.addQuestion
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:addQuestion:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1f90482]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: UPDATE question SET previous_id = ? WHERE id = ? 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 2643(String), 2420(Integer)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.updateQuestion
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:updateQuestion:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1f90482]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT COUNT(*) FROM question WHERE isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1f90482]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE isdelete != true AND previous_id =0 LIMIT ?, ? 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 90(Integer), 10(Integer)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecordsByKeyWords
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecordsByKeyWords:16
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@8f041f]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: UPDATE question SET isdelete = true WHERE display_id in ( 'Q0002' ) 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.deleteQuestionByIds
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:deleteQuestionByIds:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@790e82]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: INSERT INTO question(display_id, question_content, option_one, option_two, option_three, option_four, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?) 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: testSave(String), testSave(String), B(String), D(String), C(String), A(String), B(String)
+2644questionId questionId questionId
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.addQuestion
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:addQuestion:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@790e82]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE isdelete != true AND previous_id = 0 ORDER BY id DESC LIMIT 0, 10 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.viewQuestionList
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:viewQuestionList:0
+before method。。。。 
+invoke logMethodTime....
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@dde075]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT COUNT(*) FROM question WHERE isdelete != true AND previous_id = 0 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 
+[15 八月 2016 23:47:53 DEBUG] - ooo Using Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@dde075]
+[15 八月 2016 23:47:53 DEBUG] - ==&gt;  Preparing: SELECT * FROM question WHERE isdelete != true AND previous_id =0 LIMIT ?, ? 
+[15 八月 2016 23:47:53 DEBUG] - ==&gt; Parameters: 0(Integer), 10(Integer)
+log method endcom.augmentum.oes.service.impl.QuestionServiceImpl.findPageRecords
+[15 八月 2016 23:47:53  INFO] - Glenn.Zheng:QuestionService:findPageRecords:16
+</pre>
+</body>
+</html>

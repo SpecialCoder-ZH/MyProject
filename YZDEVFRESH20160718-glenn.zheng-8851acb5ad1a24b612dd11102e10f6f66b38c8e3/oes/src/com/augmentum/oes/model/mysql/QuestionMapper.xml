@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.augmentum.oes.model.Question">
+
+    <resultMap type="Question" id="questionMap">
+        <id column="id" property="id"/>
+        <result property="displayId" column="display_id"/>
+        <result property="questionContent" column="question_content"/>
+        <result property="optionOne" column="option_one"/>
+        <result property="optionTwo" column="option_two"/>
+        <result property="optionThree" column="option_three"/>
+        <result property="optionFour" column="option_four"/>
+        <result property="correctOption" column="correct_option"/>
+        <result property="isdelete" column="isdelete"/>
+        <result property="previousId" column="previous_id"/>
+    </resultMap>
+
+    <insert id="createQuestion" parameterType="Question" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO 
+                question(display_id, question_content, option_one, option_two, option_three, option_four, correct_option) 
+            VALUES
+                (#{displayId}, #{questionContent}, #{optionOne}, #{optionTwo}, #{optionThree}, #{optionFour}, #{correctOption})
+        ]]>
+    </insert>
+
+    <update id="deleteQuestionById" parameterType="String" >
+        <![CDATA[
+            UPDATE 
+                question 
+            SET 
+                isdelete = true 
+            WHERE 
+                display_id = #{displayId}
+        ]]>
+    </update>
+
+    <select id="getQuestionById" resultMap="questionMap" parameterType="String">
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                id = #{id} 
+            AND 
+                isdelete != true 
+            AND 
+                previous_id = 0
+        ]]>
+    </select>
+
+    <select id="findQuestions" resultMap="questionMap" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true 
+            AND 
+                previous_id = 0 
+            ORDER BY id DESC LIMIT 0, 10
+        ]]>
+    </select>
+
+    <select id="findQuestionsByKeyWord" resultMap="questionMap" parameterType="String" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question
+            WHERE 
+                question_content LIKE CONCAT(CONCAT('%', #{keywords}), '%') AND isdelete != true AND previous_id = 0
+        ]]>
+    </select>
+
+    <select id="getTotalRecords" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true AND previous_id = 0
+        ]]>
+    </select>
+
+    <select id="findPageRecords" resultMap="questionMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true AND previous_id =0 LIMIT #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <select id="findQuestionsByKeyWordByPage" resultMap="questionMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true AND previous_id = 0 AND question_content LIKE CONCAT(CONCAT('%', #{keywords}), '%') LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="findQuestionsByKeyWordByPageDESC" resultMap="questionMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                question_content LIKE CONCAT(CONCAT('%', #{keywords}), '%') AND isdelete != true AND previous_id = 0 ORDER BY id DESC LIMIT ${startIndex}, ${pagesize}
+        ]]>
+    </select>
+
+    <select id="getTotalRecordsByKeyWord" resultType="int" >
+        <![CDATA[
+            SELECT 
+                COUNT(*) 
+            FROM 
+                question 
+            WHERE question_content LIKE CONCAT(CONCAT('%', #{keywords}), '%') AND isdelete != true AND previous_id = 0
+        ]]>
+    </select>
+
+    <select id="findPageRecordsDESC" resultMap="questionMap" parameterType="map" >
+        <![CDATA[
+            SELECT 
+                * 
+            FROM 
+                question 
+            WHERE 
+                isdelete != true AND previous_id = 0 ORDER BY id DESC LIMIT #{startIndex}, #{pagesize}
+        ]]>
+    </select>
+
+    <update id="deleteByDisplayIds" parameterType="String">
+            UPDATE 
+                question 
+            SET 
+                isdelete = true 
+             WHERE 
+                display_id in 
+            <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+                ${item}
+            </foreach>
+    </update>
+
+    <insert id="updateQuestion" parameterType="Question" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            UPDATE 
+                question 
+            SET
+                previous_id = #{previousId}
+            WHERE
+                id = #{id}
+        ]]>
+    </insert>
+</mapper>

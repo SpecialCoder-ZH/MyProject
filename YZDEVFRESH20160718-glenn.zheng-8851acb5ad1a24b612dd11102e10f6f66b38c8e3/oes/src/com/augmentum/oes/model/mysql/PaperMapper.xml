@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.augmentum.oes.model.Paper">
+
+    <resultMap type="Paper" id="paperMap">
+        <id column="id" property="id"/>
+        <result column="questionId" property="question_id"/>
+        <result column="examId" property="exam_id"/>
+        <result column="userId" property="user_id"/>
+        <result column="answer" property="answer"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Paper" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO 
+                paper(question_id, exam_id, user_id, answer) 
+            VALUES
+                (#{questionId}, #{examId}, #{userId}, #{answer})
+        ]]>
+    </insert>
+</mapper>
